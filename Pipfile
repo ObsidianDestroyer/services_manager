@@ -9,7 +9,14 @@ verify_ssl = true
 aiohttp = "==3.6.2"
 uvloop = "==0.14.0"
 structlog = "==20.1.0"
-colorama = "==0.4.3"
+isort = "*"
+black = "*"
+flake8 = "*"
+radon = "*"
+pydantic = "==1.5.1"
 
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true

@@ -1,0 +1,33 @@
+[2020-05-23 21:39:11,749] main   DEBUG  creating application instance
+[2020-05-23 21:40:22,041] main   DEBUG  has set "uvloop" event-loop: <uvloop.Loop running=False closed=False debug=False>
+[2020-05-23 21:40:22,041] main   DEBUG  creating application instance
+[2020-05-23 21:40:29,327] main   DEBUG  has set "uvloop" event-loop: <uvloop.Loop running=False closed=False debug=False>
+[2020-05-23 21:40:29,328] main   DEBUG  creating application instance
+[2020-05-23 21:41:05,903] 11 main   DEBUG  has set "uvloop" event-loop: <uvloop.Loop running=False closed=False debug=False>
+[2020-05-23 21:41:05,903] 15 main   DEBUG  creating application instance
+[2020-05-23 21:41:14,803] line:11 main   DEBUG  has set "uvloop" event-loop: <uvloop.Loop running=False closed=False debug=False>
+[2020-05-23 21:41:14,803] line:15 main   DEBUG  creating application instance
+[2020-05-23 21:41:19,524] line: 11 main   DEBUG  has set "uvloop" event-loop: <uvloop.Loop running=False closed=False debug=False>
+[2020-05-23 21:41:19,524] line: 15 main   DEBUG  creating application instance
+[2020-05-23 21:41:30,116] line: 11 [main  ] DEBUG  has set "uvloop" event-loop: <uvloop.Loop running=False closed=False debug=False>
+[2020-05-23 21:41:30,116] line: 15 [main  ] DEBUG  creating application instance
+[2020-05-23 21:41:49,378] line: 11main   DEBUG  has set "uvloop" event-loop: <uvloop.Loop running=False closed=False debug=False>
+[2020-05-23 21:41:49,379] line: 15main   DEBUG  creating application instance
+[2020-05-23 21:42:26,001] line: 11   main DEBUG  has set "uvloop" event-loop: <uvloop.Loop running=False closed=False debug=False>
+[2020-05-23 21:42:26,001] line: 15   main DEBUG  creating application instance
+[2020-05-23 21:42:39,072] line: 11 main   DEBUG  has set "uvloop" event-loop: <uvloop.Loop running=False closed=False debug=False>
+[2020-05-23 21:42:39,072] line: 15 main   DEBUG  creating application instance
+[2020-05-23 21:42:50,215] line: 11-main   DEBUG  has set "uvloop" event-loop: <uvloop.Loop running=False closed=False debug=False>
+[2020-05-23 21:42:50,215] line: 15-main   DEBUG  creating application instance
+[2020-05-23 21:43:02,342] line: main   11- DEBUG  has set "uvloop" event-loop: <uvloop.Loop running=False closed=False debug=False>
+[2020-05-23 21:43:02,342] line: main   15- DEBUG  creating application instance
+[2020-05-23 21:43:21,810] line: main-11     DEBUG  has set "uvloop" event-loop: <uvloop.Loop running=False closed=False debug=False>
+[2020-05-23 21:43:21,810] line: main-15     DEBUG  creating application instance
+[2020-05-23 21:43:31,013] line: main-11    DEBUG  has set "uvloop" event-loop: <uvloop.Loop running=False closed=False debug=False>
+[2020-05-23 21:43:31,013] line: main-15    DEBUG  creating application instance
+[2020-05-23 21:43:40,680] line: main-11DEBUG  has set "uvloop" event-loop: <uvloop.Loop running=False closed=False debug=False>
+[2020-05-23 21:43:40,680] line: main-15DEBUG  creating application instance
+[2020-05-23 21:43:45,004] line: main-    11DEBUG  has set "uvloop" event-loop: <uvloop.Loop running=False closed=False debug=False>
+[2020-05-23 21:43:45,004] line: main-    15DEBUG  creating application instance
+[2020-05-23 21:43:51,245] line: main-11    DEBUG  has set "uvloop" event-loop: <uvloop.Loop running=False closed=False debug=False>
+[2020-05-23 21:43:51,245] line: main-15    DEBUG  creating application instance

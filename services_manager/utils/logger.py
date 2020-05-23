@@ -1,27 +1,54 @@
+import sys
+import syslog
 import logging
-import structlog
+import logging.handlers
+import logging.config
+
+from services_manager.settings import LOGFILE_PATH
 
 __all__ = ['logger']
 
 
-def create_logger() -> structlog.PrintLogger:
-    logging.basicConfig(level=logging.NOTSET)
-    structlog.configure(
-        processors=[
-            structlog.stdlib.filter_by_level,
-            structlog.stdlib.add_logger_name,
-            structlog.processors.StackInfoRenderer(),
-            structlog.processors.format_exc_info,
-            structlog.processors.TimeStamper(),
-            structlog.dev.ConsoleRenderer(colors=True, force_colors=True),
-            structlog.dev.set_exc_info,
-        ],
-        wrapper_class=structlog.BoundLogger,
-        context_class=dict,
-        logger_factory=structlog.stdlib.LoggerFactory(),
-        cache_logger_on_first_use=False,
-    )
-    return structlog.get_logger()
+def create_logger() -> logging.Logger:
+    logging.config.dictConfig({
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'verbose': {
+                'format': '[%(asctime)s] line: %(name)s-%(lineno)-6s%(levelname)-6s %(message)s'
+            }
+        },
+        'handlers': {
+            'stdout': {
+                'class': 'logging.StreamHandler',
+                'stream': sys.stdout,
+                'formatter': 'verbose',
+                'level': logging.NOTSET
+            },
+            'sys-app-logger': {
+                'class': 'logging.handlers.SysLogHandler',
+                'address': '/dev/log',
+                'level': logging.DEBUG,
+                'facility': syslog.LOG_USER,
+                'formatter': 'verbose',
+            },
+            'app-file-handler': {
+                'class': 'logging.FileHandler',
+                'filename': LOGFILE_PATH,
+                'formatter': 'verbose',
+                'level': logging.NOTSET
+            }
+        },
+        'loggers': {
+            'main': {
+                'handlers': ['sys-app-logger', 'stdout', 'app-file-handler'],
+                'level': logging.DEBUG,
+                'propagate': True,
+            }
+        }
+    })
+    logger_ = logging.getLogger('main')
+    return logger_
 
 
 logger = create_logger()
