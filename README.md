@@ -1,6 +1,7 @@
 # Services manager application
 - - -
 This application is built for manage services on your server.
+You are can run this application with command: `python .`
 Includes simple REST API:
 ##### [GET] method:
 > Bare **GET** request:  `$HOST/api/services`
