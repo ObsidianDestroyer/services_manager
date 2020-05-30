@@ -1,7 +1,7 @@
 # Services manager application
 - - -
-This application is built for manage services on your server.
-You are can run this application with command: `python .`
+This application is built for manage services on your server. \
+You are can run this application with command: `sudo python .` \
 Includes simple REST API:
 ##### [GET] method:
 > Bare **GET** request:  `$HOST/api/services`
@@ -22,9 +22,9 @@ Includes simple REST API:
   }
 ]
 ```
-`serviceID` is internal identity of service in SQLite database.
-`serviceName` is a unique name specified for the service and equal to the name of the real system service.
-`serviceStatus` the label of the current status of the service; `true` - works; `false` - service stopped.
+`serviceID` is internal identity of service in SQLite database. \
+`serviceName` is a unique name specified for the service and equal to the name of the real system service. \
+`serviceStatus` the label of the current status of the service; `true` - works; `false` - service stopped. \
 `ServiceLock` the label of the current lock state of the service; `true` - stopped due an error; `false` - not locked, available to use. If the service lock status is `true`, then the service cannot be started.
 - - -
 ##### [POST] method:
