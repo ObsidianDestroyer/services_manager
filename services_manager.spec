@@ -14,6 +14,9 @@ python setup.py bdist_rpm
 sudo dnf install pipenv
 pipenv install --system
 
+%clean
+rm -rf %{buildroot}
+
 %files
 ./logs
 ./services_manager
