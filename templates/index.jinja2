@@ -1,0 +1,179 @@
+{% extends "base_layout.jinja2" %}
+
+{% block button_js %}
+<script type="text/javascript">
+    function serviceAction(APIEndpoint, action) {
+        console.log(`invokation action "${JSON.stringify(APIEndpoint)}"`)
+        $.ajax({
+            url: APIEndpoint,
+            type: "POST",
+            success: function(response) {
+                console.log(`action applied: ${JSON.stringify(response)}`);
+                var status = $('#status');
+                var button = $(`#${action}`);
+                switch(action) {
+                    case  'actionStart':
+                        button.prop("disabled", true);
+                        var stopButton = $("#actionStop").prop("disabled", true);
+                        var restartButton = $("#actionRestart").prop("disabled", true);
+                        if (response.serviceStatus == true)  {
+                            status.removeClass("text-secondary").addClass("text-success")
+                            status.text(`status: ${
+                            String(response.serviceStatus)[0].toUpperCase() + String(response.serviceStatus).slice(1)
+                            };`);
+                            stopButton.prop("disabled", false);
+                            restartButton.prop("disabled", false);
+                        }
+                        else {
+                            status.removeClass("text-secondary").addClass("text-danger")
+                            if (response.serviceLock != true) {
+                                button.prop("disabled", response.serviceStatus)
+                            }
+                            else {
+                                button.prop("disabled", true)
+                            }
+                            status.text(`status: ${
+                            String(response.serviceStatus)[0].toUpperCase() + String(response.serviceStatus).slice(1)
+                            };`)
+                        }
+                        break
+                    case 'actionStop':
+                        button.prop("disabled", true);
+                        var startButton = $("#actionStart").prop("disabled", true);
+                        var restartButton = $("#actionRestart").prop("disabled", true);
+                        if (response.serviceStatus == false)  {
+                            status.removeClass("text-success").addClass("text-secondary")
+                            status.text(`status: ${
+                            String(response.serviceStatus)[0].toUpperCase() + String(response.serviceStatus).slice(1)
+                            };`);
+                            button.prop("disabled", true);
+                            restartButton.prop("disabled", true);
+                            startButton.prop("disabled", false);
+                        }
+                        else {
+                            if (response.serviceLock != true) {
+                                button.prop("disabled", response.serviceStatus)
+                            }
+                            else {
+                                status.removeClass("text-secondary").addClass("text-danger")
+                                startButton.prop("disabled", response.serviceLock)
+                            }
+                            status.text(`status: ${
+                            String(response.serviceStatus)[0].toUpperCase() + String(response.serviceStatus).slice(1)
+                            };`)
+                        }
+                        break
+                    case 'actionRestart':
+                        button.prop("disabled", true);
+                        var startButton = $("#actionStart").prop("disabled", true);
+                        var stopButton = $("#actionStop").prop("disabled", true);
+                        if (response.serviceStatus == true)  {
+                            status.removeClass("text-secondary").addClass("text-success")
+                            status.text(`status: ${
+                            String(response.serviceStatus)[0].toUpperCase() + String(response.serviceStatus).slice(1)
+                            };`);
+                            button.prop("disabled", response.serviceStatus);
+                            startButton.prop("disabled", false);
+                            stopButton.prop("disabled", false);
+                        }
+                        else {
+                            status.removeClass("text-success").addClass("text-secondary")
+                            if (response.serviceLock != true) {
+                                button.prop("disabled", response.serviceStatus)
+                            }
+                            else {
+                                status.removeClass("text-secondary").addClass("text-danger")
+                                button.prop("disabled", true)
+                                startButton.prop("disabled", response.serviceLock)
+                            }
+                            status.text(`status: ${
+                            String(response.serviceStatus)[0].toUpperCase() + String(response.serviceStatus).slice(1)
+                            };`)
+                        }
+                        break
+                }
+            },
+            error: function(jqXHR, errResponse) {
+                console.log(jqXHR.responseJSON.error)
+                console.log(`error occurred: ${JSON.stringify(errResponse)}`)
+                alert(`Server response: ${jqXHR.responseJSON.error}`)
+            }
+        });
+    }
+</script>
+{% endblock %}
+
+{% block body %}
+<h1 class="p-3 mb-2 bg-secondary text-white">Available services:</h1>
+<ul class="list-group">
+    {%- for service in services -%}
+        <li class="list-group-item">
+            <span class="text-primary text-justify">
+                service: <span style= "font-size: 30px" class="font-weight-bold">{{ service.serviceName }}</span>
+            </span>
+                {% if service.serviceStatus == False  %}
+                    <span id="status" class="text-secondary container-sm">
+                        status: {{ service.serviceStatus }};
+                    </span>
+                    {% if service.serviceLock == False %}
+                        <span id="lockStatus" class="text-secondary container-sm">
+                            locked: {{ service.serviceLock}}     
+                        </span>
+                    {% else %}
+                        <span id="lockStatus" class="text-danger container-sm">
+                            locked: {{ service.serviceLock}}     
+                        </span>
+                    {% endif %}
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button 
+                            id="actionStart"
+                            type="button"
+                            class="btn btn-primary"
+                            onclick="serviceAction('{{ service.actions.start }}', 'actionStart')">
+                            start
+                        </button>
+                        <button 
+                            id="actionStop"
+                            type="button"
+                            class="btn btn-danger"
+                            onclick="serviceAction('{{ service.actions.stop }}', 'actionStop')" disabled>
+                            stop
+                        </button>
+                        <button 
+                            id="actionRestart"
+                            type="button"
+                            class="btn btn-warning"
+                            onclick="serviceAction('{{ service.actions.restart }}', 'actionRestart')" disabled>
+                            restart
+                        </button>
+                    </div>
+                {% else %}
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button 
+                            id="actionStart"
+                            type="button"
+                            class="btn btn-primary"
+                            onclick="serviceAction('{{ service.actions.start }}', 'actionStart')" disabled>
+                            start
+                        </button>
+                        <button 
+                            id="actionStop"
+                            type="button"
+                            class="btn btn-danger"
+                            onclick="serviceAction('{{ service.actions.stop }}', 'actionStop')">
+                            stop
+                        </button>
+                        <button 
+                            id="actionRestart"
+                            type="button"
+                            class="btn btn-warning"
+                            onclick="serviceAction('{{ service.actions.restart }}', 'actionRestart')">
+                            restart
+                        </button>
+                    </div>
+                {% endif %}
+        </li>
+    {%- endfor -%}
+</ul>
+
+{% endblock %}

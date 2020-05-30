@@ -1,13 +1,14 @@
 import os
 import sys
 import traceback
+import typing as t
 
 
-def print_error_and_exit(message: bytes):
-    sys.exit(message.decode())
+def print_error_and_exit(message: str) -> None:
+    sys.exit(message)
 
 
-def env_or_exit(env_name, cast=None):
+def env_or_exit(env_name, cast=None) -> t.Union[bool, int, str]:
     env = os.getenv(env_name)
     if env is None:
         print_error_and_exit(f'You should set \'{env_name}\' env')

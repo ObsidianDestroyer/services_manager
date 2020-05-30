@@ -13,7 +13,9 @@ isort = "*"
 black = "*"
 flake8 = "*"
 radon = "*"
-pydantic = "==1.5.1"
+tortoise-orm = "==0.16.12"
+aiohttp-jinja2 = "==1.2.0"
+jinja2 = "==2.11.2"
 
 [requires]
 python_version = "3.7"
